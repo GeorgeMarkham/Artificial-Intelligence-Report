@@ -13,5 +13,35 @@
     \maketitle
     \section*{Introduction}
     The purpose of the chatbot developed for this project is to enable user's to find and book train tickets, find out how long their train is likely to be delayed for, and for train staff to easily access contingency plans in the event of a problem.
+    \section*{Related Work}
+    \section*{Design}
     
+    \section*{Implementation}
+    
+    To create the chatbot a number of tools and frameworks would need to be used. These would need to be Python based. Currently many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
+    
+    \subsection*{Tools}
+    \subsubsection*{Facebook Messenger}
+    It was decided that, to bring the chatbot to the largest amount of users, Facebook's Messenger platform should be used as our interface. Using Facebook's Messenger platform would allow users to access the chatbot without having to install or sign up to a new service, this was important to the project as the goal is not to give users a new platform rather to provide a service. Facebook also gives a unique ID for each user which can be used for identification in the database.
+    \subsection*{Frameworks}
+    \subsubsection*{DialogFlow}
+    DialogFlow provides the natural language processing (NLP) and natural language generation (NLG) for the chatbot. It integrates with Python through a library and therefore gives easy access and allows integration with the rest of the project.
+    \subsubsection*{PyKnow}
+    PyKnow is used as the knowledge engine when dealing with contingency plans for train staff. 
+    \subsubsection*{SciKit Learn}
+    The SciKit Learn machine learning library provides a number of functions for creating models. SciKit Learn was used to produce the model to predict the delays for a train.
+    \subsubsection*{Flask}
+    The Flask Python framework was used to build the server logic that handles the recieving and sending of messages. Flask is easy to use and, as it is Python based, integrates well with the rest of the project.
+    \subsection*{Server}
+    Facebook Messenger requires an SSL encrypted connection to send messages to and receive messages from users. This means that a webserver must be set up with an SSL certifacte in order to facilitate this.
+    \subsubsection*{Microsoft Azure}
+    It was decided to use Microsoft's Azure platform as the host for this project. Azure provides Linux VMs and this allows for proper web server configuration and testing.
+    \subsubsection*{NGINX}
+    NGINX was used as a reverse proxy to host the Python application. NGINX passes a connection to the Python Flask application and enables easy SSL certificate generation with Let's Encrypt and the Electronic Frontier Foundation's (EFF) Certbot tool %Link to Let's Encrypt and EFF
+    \subsubsection*{Let's Encrypt}
+    Let's Encrypt and EFF's Certbot tool was used to generate the SSL certificate for the server. Certbot automatically configures NGINX to use SSL rather than a standard HTTP connection, making the server configuration much easier.
+    
+    \section*{Testing}
+    \section*{Evaluation}
+    \section*{Discussion}
 \end{document}
