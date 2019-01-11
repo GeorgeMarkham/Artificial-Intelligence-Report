@@ -3,6 +3,7 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{float}
+\graphicspath{Images/}
 
 \title{Artificial Intelligence Assignment: Developing an Intelligent Conversational Bot}
 \author{George Markham, Wan-Ju Chen (Ada), \\ Anurag Bonde, Owen Birch \\ (Group 4)} %Add your names in here
@@ -11,37 +12,61 @@
 \begin{document}
 
     \maketitle
-    \section*{Introduction}
+    \section{Introduction}
     The purpose of the chatbot developed for this project is to enable user's to find and book train tickets, find out how long their train is likely to be delayed for, and for train staff to easily access contingency plans in the event of a problem.
-    \section*{Related Work}
-    \section*{Design}
+    \section{Related Work}
+    \section{Design}
+    The chatbot will use Facebook's messenger platform as it's interface. Therefore the system will need to be designed around Facebook's requirements. For example it should be designed to run on a server and respond to HTTP requests sent by Facebook. These requests will contain a user's message to the chatbot and the response, therefore, should reflect the user's message. For example if a user sends a message such as "Hi" then the chatbot should respond with a greeting and some information about the chatbot. These responses will be generated on the server side and then sent out to the user. The flowchart below (figure \ref{fig:server_flowchat}) shows how the server will operate.
     
-    \section*{Implementation}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7]{Images/server_flowchart.png}
+        \caption{A Flowchart Showing how the Server Should Operate}
+        \label{fig:server_flowchat}
+    \end{figure}
+    
+    The flowchart below (\ref{fig:overall_flowchart}) shows how the overall system will work. This is the main guide that was used when developing the chatbot.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{Images/flowchart_overall.png}
+        \caption{A Flowchart Showing how the Overall System Should Operate}
+        \label{fig:overall_flowchart}
+    \end{figure}
+    
+    \section{Implementation}
     
     To create the chatbot a number of tools and frameworks would need to be used. These would need to be Python based. Currently many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
     
-    \subsection*{Tools}
-    \subsubsection*{Facebook Messenger}
+    \subsection{Tools}
+    \subsubsection{Facebook Messenger}
     It was decided that, to bring the chatbot to the largest amount of users, Facebook's Messenger platform should be used as our interface. Using Facebook's Messenger platform would allow users to access the chatbot without having to install or sign up to a new service, this was important to the project as the goal is not to give users a new platform rather to provide a service. Facebook also gives a unique ID for each user which can be used for identification in the database.
-    \subsection*{Frameworks}
-    \subsubsection*{DialogFlow}
+    \subsection{Frameworks}
+    \subsubsection{DialogFlow}
     DialogFlow provides the natural language processing (NLP) and natural language generation (NLG) for the chatbot. It integrates with Python through a library and therefore gives easy access and allows integration with the rest of the project.
-    \subsubsection*{PyKnow}
+    \subsubsection{PyKnow}
     PyKnow is used as the knowledge engine when dealing with contingency plans for train staff. 
-    \subsubsection*{SciKit Learn}
+    \subsubsection{SciKit Learn}
     The SciKit Learn machine learning library provides a number of functions for creating models. SciKit Learn was used to produce the model to predict the delays for a train.
-    \subsubsection*{Flask}
+    \subsubsection{Flask}
     The Flask Python framework was used to build the server logic that handles the recieving and sending of messages. Flask is easy to use and, as it is Python based, integrates well with the rest of the project.
-    \subsection*{Server}
+    \subsection{Server}
+    \label{}
     Facebook Messenger requires an SSL encrypted connection to send messages to and receive messages from users. This means that a webserver must be set up with an SSL certifacte in order to facilitate this.
-    \subsubsection*{Microsoft Azure}
+    \subsubsection{Microsoft Azure}
     It was decided to use Microsoft's Azure platform as the host for this project. Azure provides Linux VMs and this allows for proper web server configuration and testing.
-    \subsubsection*{NGINX}
+    \subsubsection{NGINX}
     NGINX was used as a reverse proxy to host the Python application. NGINX passes a connection to the Python Flask application and enables easy SSL certificate generation with Let's Encrypt and the Electronic Frontier Foundation's (EFF) Certbot tool %Link to Let's Encrypt and EFF
-    \subsubsection*{Let's Encrypt}
+    \subsubsection{Let's Encrypt}
     Let's Encrypt and EFF's Certbot tool was used to generate the SSL certificate for the server. Certbot automatically configures NGINX to use SSL rather than a standard HTTP connection, making the server configuration much easier.
     
-    \section*{Testing}
-    \section*{Evaluation}
-    \section*{Discussion}
+    \subsection{Building the System}
+    When developing the system a component based approach was used. Each part of the system was developed independently of the overall system and then put together with the server acting as the entry point and the NLP program acts as the overall controller for the rest of the system. Using this method it can be ensured that each component is fully operational before integrating it into the overall system.
+    
+    \subsection{Server Logic}
+    The server recieves a series of HTTP requests from Facebook when a message is sent. The first is a GET request intended to verify that a) Facebook is the platform sending the message and b) Facebook can verify that the server is the one it is expecting. The Second is a POST request containing the user's information (e.g their unique Sender ID) and their message. The message can then be extracted from this POST request and passed to the NLP component. A POST request is then sent on to Facebook containing the NLG response. This response is passed on to the user as a message.
+    
+    \section{Testing}
+    \section{Evaluation}
+    \section{Discussion}
 \end{document}
