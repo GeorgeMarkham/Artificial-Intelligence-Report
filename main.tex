@@ -50,8 +50,11 @@
     The SciKit Learn machine learning library provides a number of functions for creating models. SciKit Learn was used to produce the model to predict the delays for a train.
     \subsubsection{Flask}
     The Flask Python framework was used to build the server logic that handles the recieving and sending of messages. Flask is easy to use and, as it is Python based, integrates well with the rest of the project.
+    \subsubsection{BeautifulSoup}
+    \label{subsubsection:BeautifulSoup}
+    BeautifulSoup is a Python HTML parsing library. This will be used for parsing the National Rail website to get information about trains for the user.
     \subsection{Server}
-    \label{}
+    \label{subsection:Server}
     Facebook Messenger requires an SSL encrypted connection to send messages to and receive messages from users. This means that a webserver must be set up with an SSL certifacte in order to facilitate this.
     \subsubsection{Microsoft Azure}
     It was decided to use Microsoft's Azure platform as the host for this project. Azure provides Linux VMs and this allows for proper web server configuration and testing.
@@ -65,6 +68,11 @@
     
     \subsection{Server Logic}
     The server recieves a series of HTTP requests from Facebook when a message is sent. The first is a GET request intended to verify that a) Facebook is the platform sending the message and b) Facebook can verify that the server is the one it is expecting. The Second is a POST request containing the user's information (e.g their unique Sender ID) and their message. The message can then be extracted from this POST request and passed to the NLP component. A POST request is then sent on to Facebook containing the NLG response. This response is passed on to the user as a message.
+    
+    \subsection{Web Scraping}
+    There is no publicly available API to get information about sceduled train journeys in the UK. To get around this a web scraping approach had to be used. A number of websites provide train information (e.g. National Rail and Trailine). It was decided to use the National Rail website to gather train information. The first task was to construct the URL that points to a dynamically generated web page containing the train information. This URL is of the format
+    \emph{http://ojp.nationalrail.co.uk/service/timesandfares/FROM/TO/DATE/TIME/dep} where \emph{TO} and \emph{FROM} are the 3 letter station codes (e.g NRW for Norwich), \emph{DATE} is the date formatted as \emph{YYMMDD} (year, month and day concatenated) and \emph{TIME} is the intended travel time formatted as \emph{hhmm} (hour and minute concatenated).
+    As stated in \ref{subsubsection:BeautifulSoup} the BeautifulSoup library was used to parse the National Rail website and extract the necessary information such as the train time, date and fare. The trains found on the National Rail website are sorted so that the cheapest one is found first and displayed to the user. Functionality was also built to sort the trains in order of their time of departure however the current version has not made such functionality available to the user.
     
     \section{Testing}
     \section{Evaluation}
