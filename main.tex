@@ -4,9 +4,11 @@
 \usepackage{graphicx}
 \usepackage{float}
 \graphicspath{Images/}
+\usepackage{natbib}
+\bibliographystyle{agsm}
 
 \title{Artificial Intelligence Assignment: Developing an Intelligent Conversational Bot}
-\author{George Markham, Wan-Ju Chen (Ada), \\ Anurag Bonde, Owen Birch \\ (Group 4)} %Add your names in here
+\author{George Markham, Wan-Ju Chen, \\ Anurag Bonde, Owen Birch \\ (Group 4)} %Add your names in here
 \date{November 2018}
 
 \begin{document}
@@ -41,25 +43,38 @@
     \subsection{Tools}
     \subsubsection{Facebook Messenger}
     It was decided that, to bring the chatbot to the largest amount of users, Facebook's Messenger platform should be used as our interface. Using Facebook's Messenger platform would allow users to access the chatbot without having to install or sign up to a new service, this was important to the project as the goal is not to give users a new platform rather to provide a service. Facebook also gives a unique ID for each user which can be used for identification in the database.
+    
     \subsection{Frameworks}
+    
     \subsubsection{DialogFlow}
     DialogFlow provides the natural language processing (NLP) and natural language generation (NLG) for the chatbot. It integrates with Python through a library and therefore gives easy access and allows integration with the rest of the project.
+    
     \subsubsection{PyKnow}
     PyKnow is used as the knowledge engine when dealing with contingency plans for train staff. 
+    
     \subsubsection{SciKit Learn}
     The SciKit Learn machine learning library provides a number of functions for creating models. SciKit Learn was used to produce the model to predict the delays for a train.
+    
     \subsubsection{Flask}
     The Flask Python framework was used to build the server logic that handles the recieving and sending of messages. Flask is easy to use and, as it is Python based, integrates well with the rest of the project.
+    
     \subsubsection{BeautifulSoup}
     \label{subsubsection:BeautifulSoup}
     BeautifulSoup is a Python HTML parsing library. This will be used for parsing the National Rail website to get information about trains for the user.
+    
+    \subsubsection{MongoDB \& PyMongo}
+    \label{subsubsection:mongodb}
+    It was determined that a document based database would be suitable for this project as there appear to be very few relations and the data collected would not benefit from being stored in seperate tables. MongoDB stores data as binary JSON (BSON) \citep{korneliusz_2014} and as such is relatively quick to read and write. These benefits are good to have and contribute to the use of MongoDB and PyMongo over SQL based relational databases.
+    
     \subsection{Server}
     \label{subsection:Server}
     Facebook Messenger requires an SSL encrypted connection to send messages to and receive messages from users. This means that a webserver must be set up with an SSL certifacte in order to facilitate this.
     \subsubsection{Microsoft Azure}
     It was decided to use Microsoft's Azure platform as the host for this project. Azure provides Linux VMs and this allows for proper web server configuration and testing.
+    
     \subsubsection{NGINX}
     NGINX was used as a reverse proxy to host the Python application. NGINX passes a connection to the Python Flask application and enables easy SSL certificate generation with Let's Encrypt and the Electronic Frontier Foundation's (EFF) Certbot tool %Link to Let's Encrypt and EFF
+    
     \subsubsection{Let's Encrypt}
     Let's Encrypt and EFF's Certbot tool was used to generate the SSL certificate for the server. Certbot automatically configures NGINX to use SSL rather than a standard HTTP connection, making the server configuration much easier.
     
@@ -74,7 +89,13 @@
     \emph{http://ojp.nationalrail.co.uk/service/timesandfares/FROM/TO/DATE/TIME/dep} where \emph{TO} and \emph{FROM} are the 3 letter station codes (e.g NRW for Norwich), \emph{DATE} is the date formatted as \emph{YYMMDD} (year, month and day concatenated) and \emph{TIME} is the intended travel time formatted as \emph{hhmm} (hour and minute concatenated).
     As stated in \ref{subsubsection:BeautifulSoup} the BeautifulSoup library was used to parse the National Rail website and extract the necessary information such as the train time, date and fare. The trains found on the National Rail website are sorted so that the cheapest one is found first and displayed to the user. Functionality was also built to sort the trains in order of their time of departure however the current version has not made such functionality available to the user.
     
+    \subsection{Database}
+    
+    
     \section{Testing}
     \section{Evaluation}
     \section{Discussion}
+    
+    \bibliography{main.bib}
+    
 \end{document}
