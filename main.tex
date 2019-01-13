@@ -15,19 +15,19 @@
 
     \maketitle
     \section{Introduction}
-    The purpose of the chatbot developed for this project is to enable user's to find and book train tickets, find out how long their train is likely to be delayed for, and for train staff to easily access contingency plans in the event of a problem.
+    The purpose of the chatbot developed for this project is to enable users to find and book train tickets, find out if and how long their train is likely to be delayed for, and for train staff to easily access contingency plans in the event of a problem.
     \section{Related Work}
     \section{Design}
-    The chatbot will use Facebook's messenger platform as it's interface. Therefore the system will need to be designed around Facebook's requirements. For example it should be designed to run on a server and respond to HTTP requests sent by Facebook. These requests will contain a user's message to the chatbot and the response, therefore, should reflect the user's message. For example if a user sends a message such as "Hi" then the chatbot should respond with a greeting and some information about the chatbot. These responses will be generated on the server side and then sent out to the user. The flowchart below (figure \ref{fig:server_flowchat}) shows how the server will operate.
+    The chatbot will use Facebook's messenger platform as its interface, and thus the system will need to be designed around Facebook's requirements. For example, it should be designed to run on a server and respond to HTTP requests sent by Facebook. These requests will contain a user's message to the chatbot and the response, therefore, should reflect the user's message. For example if a user sends a message such as "Hi" then the chatbot should respond with a greeting and some information about the chatbot. These responses will be generated on the server side and then sent out to the user. The flowchart below (Figure \ref{fig:server_flowchat}) shows how the server will operate.
     
     \begin{figure}[H]
         \centering
         \includegraphics[scale=0.7]{Images/server_flowchart.png}
-        \caption{A Flowchart Showing how the Server Should Operate}
+        \caption{A Flowchart showing how the server should operate.}
         \label{fig:server_flowchat}
     \end{figure}
     
-    The flowchart below (\ref{fig:overall_flowchart}) shows how the overall system will work. This is the main guide that was used when developing the chatbot.
+    The flowchart below (Figure \ref{fig:overall_flowchart}) shows the basic conversational structure of how the system will work. This is an example of conversation design when developing the chatbot.
     
     \begin{figure}[H]
         \centering
@@ -38,11 +38,13 @@
     
     \section{Implementation}
     
-    To create the chatbot a number of tools and frameworks would need to be used. These would need to be Python based. Currently many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
+    To create this chatbot, a number of tools and frameworks are required. Our project has been Python based. Currently, many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit-Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
     
     \subsection{Tools}
     \subsubsection{Facebook Messenger}
-    It was decided that, to bring the chatbot to the largest amount of users, Facebook's Messenger platform should be used as our interface. Using Facebook's Messenger platform would allow users to access the chatbot without having to install or sign up to a new service, this was important to the project as the goal is not to give users a new platform rather to provide a service. Facebook also gives a unique ID for each user which can be used for identification in the database.
+    It was decided that to bring the chatbot to the largest amount of users, Facebook's Messenger platform should be used as our interface. Using Facebook's this platform would allow users to not only access the chatbot, but to do so without having to install or sign up to a new service. This is important to the project as the goal is not to give users a new platform, but rather to provide a service. It seems that many companies are also doing the same, with over 100,000 active chatbots currently on messenger, most of which are business related \citep{Parr17}. Facebook also gives a unique ID for each user which can be used for identification in the chatbot's database. 
+    
+    Following the scandals that Facebook went through recently, their security measures for developers have increased. Applications have to be 'approved' and pass Facebook's security checks before they can be made public. These changes were made to prevent potentially unethical attainment of peoples private information such as gender, hometown etc \citep{Perez18}
     
     \subsection{Frameworks}
     
@@ -95,7 +97,11 @@
     \section{Testing}
     \section{Evaluation}
     \section{Discussion}
+    \subsection{Facebook Messenger}
+    Facebook for developers backend provides plenty of functionalities to help users setting chatbot efficiently. Unfortunately, after several cyber attacks, Facebook verification becomes more serious. For instance, we tried to create a new account for coursework, and Facebook had blocked the new account one-day latter. Another problem is even we used the original personal account and had changed the status of the app from developing to live, we still have to wait for approved by Facebook. Otherwise, the robot only could response the questions of the account owner. On the other hand, Facebook backend provides very powerful dashboard functionality for monitoring API's status and analysis the gender of the user of visiting chatbot and so on.
+    As a result of these, next time we might be able to try Google assistant/simulator instead of Facebook messenger for group co-work. Because according to research, the Google simulator could publish or share test link to team members to attain more efficient collaboration.
     
+    \bibliographystyle{agsm}
     \bibliography{main.bib}
     
 \end{document}
