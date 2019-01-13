@@ -27,35 +27,35 @@
         \label{fig:server_flowchat}
     \end{figure}
     
-    The flowchart below (Figure \ref{fig:overall_flowchart}) shows the basic conversational structure of how the system will work. This is an example of conversation design when developing the chatbot.
-    
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.4]{Images/flowchart_overall.png}
-        \caption{A Flowchart Showing how the Overall System Should Operate}
-        \label{fig:overall_flowchart}
-    \end{figure}
-    
     \section{Implementation}
     
-    To create this chatbot, a number of tools and frameworks are required. Our project has been Python based. Currently, many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit-Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
+    To create this chatbot, a number of tools and frameworks are required. This project is Python based. Currently, many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit-Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
     
     \subsection{Tools}
     \subsubsection{Facebook Messenger}
-    It was decided that to bring the chatbot to the largest amount of users, Facebook's Messenger platform should be used as our interface. Using Facebook's this platform would allow users to not only access the chatbot, but to do so without having to install or sign up to a new service. This is important to the project as the goal is not to give users a new platform, but rather to provide a service. It seems that many companies are also doing the same, with over 100,000 active chatbots currently on messenger, most of which are business related \citep{Parr17}. Facebook also gives a unique ID for each user which can be used for identification in the chatbot's database. 
+    It was decided that to bring the chatbot to the largest amount of users, Facebook's Messenger platform should be used as the chatbot's interface. Using Facebook's this platform would allow users to not only access the chatbot, but to do so without having to install or sign up to a new service. This is important to the project as the goal is not to give users a new platform, but rather to provide a service. It seems that many companies are also doing the same, with over 100,000 active chatbots currently on messenger, most of which are business related \citep{Parr17}. Facebook also gives a unique ID for each user which can be used for identification in the chatbot's database. \\
     
-    Following the scandals that Facebook went through recently, their security measures for developers have increased. Applications have to be 'approved' and pass Facebook's security checks before they can be made public. These changes were made to prevent potentially unethical attainment of peoples private information such as gender, hometown etc \citep{Perez18}
+    Following the scandals that Facebook went through recently, their security measures for developers have increased. Applications have to be 'approved' and pass Facebook's security checks before they can be made public. These changes were made to prevent potentially unethical attainment of peoples private information such as gender, hometown etc \citep{Perez18}. This led to some initial difficulty in our chatbot being implemented, as we attempted to do so without using the 'Facebook Developers' platform. This led to our page being deleted. However, once we began to implement our chatbot through the proper avenues, we experienced no problems, and in fact discovered that the developers platform provided a lot of useful information such as usage statistics, and live API status updates.
     
     \subsection{Frameworks}
     
     \subsubsection{DialogFlow}
-    DialogFlow provides the natural language processing (NLP) and natural language generation (NLG) for the chatbot. It integrates with Python through a library and therefore gives easy access and allows integration with the rest of the project.
+    DialogFlow provides the natural language processing (NLP) and natural language generation (NLG) for the chatbot. It integrates with Python through a library, and therefore gives easy access and allows integration with the rest of the project. The reasons behind choosing DialogFlow as an NLP tool over other services we tried such as wit.ai included DialogFlow's capability for dealing with 'small talk', and the ability to create follow up intents that improved the flow of conversation. The documentation provided by Google relating to conversation design also helped greatly in the creation of the chatbot, providing advice on how to 'lead' a user to respond in predictable ways, so that your chatbot rarely misunderstands a message. \\
+    
+    The flowchart below (Figure \ref{fig:overall_flowchart}) shows a basic example of how a model conversation works, in this case, when a user tries to book a ticket.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{Images/flowchart_overall.png}
+        \caption{A flowchart showing the confersational flow when a user tries to book a ticket.}
+        \label{fig:overall_flowchart}
+    \end{figure}
     
     \subsubsection{PyKnow}
     PyKnow is used as the knowledge engine when dealing with contingency plans for train staff. 
     
-    \subsubsection{SciKit Learn}
-    The SciKit Learn machine learning library provides a number of functions for creating models. SciKit Learn was used to produce the model to predict the delays for a train.
+    \subsubsection{SciKit-Learn}
+    The SciKit-Learn machine learning library provides a number of functions for creating models. It was used to build a model t
     
     \subsubsection{Flask}
     The Flask Python framework was used to build the server logic that handles the recieving and sending of messages. Flask is easy to use and, as it is Python based, integrates well with the rest of the project.
@@ -97,9 +97,6 @@
     \section{Testing}
     \section{Evaluation}
     \section{Discussion}
-    \subsection{Facebook Messenger}
-    Facebook for developers backend provides plenty of functionalities to help users setting chatbot efficiently. Unfortunately, after several cyber attacks, Facebook verification becomes more serious. For instance, we tried to create a new account for coursework, and Facebook had blocked the new account one-day latter. Another problem is even we used the original personal account and had changed the status of the app from developing to live, we still have to wait for approved by Facebook. Otherwise, the robot only could response the questions of the account owner. On the other hand, Facebook backend provides very powerful dashboard functionality for monitoring API's status and analysis the gender of the user of visiting chatbot and so on.
-    As a result of these, next time we might be able to try Google assistant/simulator instead of Facebook messenger for group co-work. Because according to research, the Google simulator could publish or share test link to team members to attain more efficient collaboration.
     
     \bibliographystyle{agsm}
     \bibliography{main.bib}
