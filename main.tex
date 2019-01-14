@@ -7,6 +7,7 @@
 \usepackage{natbib}
 \usepackage{listings} %For code
 \usepackage[toc, page]{appendix}
+\usepackage{hyperref}
 
 
 \title{Artificial Intelligence Assignment: Developing an Intelligent Conversational Bot}
@@ -18,19 +19,38 @@
     \maketitle
     \section{Introduction}
     The purpose of the chatbot developed for this project is to enable users to find and book train tickets, find out if and how long their train is likely to be delayed for, and for train staff to easily access contingency plans in the event of a problem.
+    This will be achieved through the objectives outlined below in section \ref{subsection:objectives}.
+    This report will aim to outline the details relating to the chatbot developed for this project, describe how it was developed and give details on the tools used to develop it (\ref{section:implementation}).
+    Section \ref{section:testing} will outline how the chatbot was tested and some of the problems that were found.
+    An example of a conversation with the chatbot can be found in appendix \ref{appendix:chatbot_conversation}.
+    
+    \subsection{Aim}
+    \label{subsection:aims}
+    This project aims to produce a conversational chatbot that can understand and respond to messages relating to the booking of train journeys.
+    
+    \subsection{Objectives}
+    \label{subsection:objectives}
+    To achieve the above aim the following objectives will be completed:
+    \begin{itemize}
+        \item Retrieve train fares based on a departure date and time;
+        \item Predict delays given some information about a user's journey;
+        \item Understand a user's message and respond in a conversational manner in order to collect necessary information from the user.
+        \item Enable train staff to access contingency plan information.
+        \item Interact with a user through an accessible and easy to use interface.
+    \end{itemize}
     
     \section{Design}
     The chatbot will use Facebook's messenger platform as its interface, and thus the system will need to be designed around Facebook's requirements. For example, it should be designed to run on a server and respond to HTTP requests sent by Facebook. These requests will contain a user's message to the chatbot and the response, therefore, should reflect the user's message. For example, if a user sends a message such as "Hi" then the chatbot should respond with a greeting and some information about the chatbot. These responses will be generated on the server side and then sent out to the user. The flowchart below (Figure \ref{fig:server_flowchat}) shows how the server will operate.
     
     \begin{figure}[H]
         \centering
-        \includegraphics[scale=0.7]{Images/server_flowchart.png}
+        \includegraphics[scale=0.4]{Images/server_flowchart.png}
         \caption{A Flowchart showing how the server should operate.}
         \label{fig:server_flowchat}
     \end{figure}
     
     \section{Implementation}
-    
+    \label{section:implementation}
     To create this chatbot, a number of tools and frameworks are required. Currently, many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit-Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
     
     \subsection{Tools}
@@ -115,6 +135,7 @@
     Data is written to the database by first constructing a Python dictionary and then simply writing to the specified MongoDB database, reading is done by returning a MongoDB Cursor object that is then treated as a dictionary in Python. By using Python's dictionary data structure it makes development extremely smooth and easy and allows the use of Python features such as foreach loops to extract objects from the dictionary.
     
     \section{Testing}
+    \label{section:testing}
     
     Due to the use of an interpreted language such as Python, some more traditional testing methods - such as the use of breakpoints to facilitate dynamic white box testing - were unable to be used. This led to the use of the console to output variables and to test that the program flow was as expected.
     Mainly unit testing was used to ensure that each component and each part of that component was working as expected. Once the component was deemed to be functional it was then integrated into the larger system and further tested in the context of the full system.
@@ -161,6 +182,17 @@
         }
     ]
     \end{lstlisting}
+    
+    \newpage
+    
+    \section{Example of a Conversation with the Chatbot}
+    \label{appendix:chatbot_conversation}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.8]{Images/example_convo.png}
+        \caption{An Example of a Conversation With the Chatbot}
+        \label{fig:my_label}
+    \end{figure}
     \end{appendices}
     
 \end{document}
