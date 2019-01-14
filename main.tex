@@ -7,7 +7,6 @@
 \usepackage{natbib}
 \usepackage{listings} %For code
 \usepackage[toc, page]{appendix}
-\bibliographystyle{agsm}
 
 
 \title{Artificial Intelligence Assignment: Developing an Intelligent Conversational Bot}
@@ -19,9 +18,9 @@
     \maketitle
     \section{Introduction}
     The purpose of the chatbot developed for this project is to enable users to find and book train tickets, find out if and how long their train is likely to be delayed for, and for train staff to easily access contingency plans in the event of a problem.
-    \section{Related Work}
+    
     \section{Design}
-    The chatbot will use Facebook's messenger platform as its interface, and thus the system will need to be designed around Facebook's requirements. For example, it should be designed to run on a server and respond to HTTP requests sent by Facebook. These requests will contain a user's message to the chatbot and the response, therefore, should reflect the user's message. For example if a user sends a message such as "Hi" then the chatbot should respond with a greeting and some information about the chatbot. These responses will be generated on the server side and then sent out to the user. The flowchart below (Figure \ref{fig:server_flowchat}) shows how the server will operate.
+    The chatbot will use Facebook's messenger platform as its interface, and thus the system will need to be designed around Facebook's requirements. For example, it should be designed to run on a server and respond to HTTP requests sent by Facebook. These requests will contain a user's message to the chatbot and the response, therefore, should reflect the user's message. For example, if a user sends a message such as "Hi" then the chatbot should respond with a greeting and some information about the chatbot. These responses will be generated on the server side and then sent out to the user. The flowchart below (Figure \ref{fig:server_flowchat}) shows how the server will operate.
     
     \begin{figure}[H]
         \centering
@@ -32,17 +31,17 @@
     
     \section{Implementation}
     
-    To create this chatbot, a number of tools and frameworks are required. This project is Python based. Currently, many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit-Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
+    To create this chatbot, a number of tools and frameworks are required. Currently, many of the state of the art machine learning tools such as Keras, TensorFlow, Theano, PyTorch and SciKit-Learn are primarily Python based. Therefore, to enable the use of those tools and to allow for the ability to swap and change these tools, one must also use Python. Python also has a lot of support available and a large number of frameworks allowing it to be used for everything this project requires such as server logic.
     
     \subsection{Tools}
-    \subsubsection{Facebook Messenger}
+    \subsubsection*{Facebook Messenger}
     It was decided that to bring the chatbot to the largest amount of users, Facebook's Messenger platform should be used as the chatbot's interface. Using Facebook's this platform would allow users to not only access the chatbot, but to do so without having to install or sign up to a new service. This is important to the project as the goal is not to give users a new platform, but rather to provide a service. It seems that many companies are also doing the same, with over 100,000 active chatbots currently on messenger, most of which are business related \citep{Parr17}. Facebook also gives a unique ID for each user which can be used for identification in the chatbot's database. \\
     
     Following the scandals that Facebook went through recently, their security measures for developers have increased. Applications have to be 'approved' and pass Facebook's security checks before they can be made public. These changes were made to prevent potentially unethical attainment of peoples private information such as gender, hometown etc \citep{Perez18}. This led to some initial difficulty in the chatbot being implemented. It was first, attempted without using the 'Facebook Developers' platform. This led to the page being deleted. However once the chatbot was implemented through the proper avenues, no problems were experienced. In fact by using the developers platform a lot of useful information could be accessed, such as usage statistics, and live API status updates.
     
     \subsection{Frameworks}
     
-    \subsubsection{DialogFlow}
+    \subsubsection*{DialogFlow}
     DialogFlow provides the natural language processing (NLP) and natural language generation (NLG) for the chatbot. It integrates with Python through a library, and therefore gives easy access and allows integration with the rest of the project. The reasons behind choosing DialogFlow as an NLP tool over other services such as wit.ai included DialogFlow's capability for dealing with 'small talk', and the ability to create follow up intents that improved the flow of conversation. The documentation provided by Google relating to conversation design also helped greatly in the creation of the chatbot, providing advice on how to 'lead' a user to respond in predictable ways, so that your chatbot rarely misunderstands a message. \\
     
     The flowchart below (Figure \ref{fig:overall_flowchart}) shows a basic example of how a model conversation works, in this case, when a user tries to book a ticket.
@@ -54,55 +53,52 @@
         \label{fig:overall_flowchart}
     \end{figure}
     
-    \subsubsection{PyKnow}
-    PyKnow is used as the knowledge engine when dealing with contingency plans for train staff. 
+    \subsubsection*{PyKnow}
+    PyKnow is used as the knowledge engine for dealing with contingency plans. Initially, the document for dealing with line disruptions has to be decoded into a set of rules, and then these rules must be matched to a knowledge base. Once the chatbot detects that a user is talking about line disruptions, it then breaks the message down, matches it to a rule, and outputs the relevant part of the document to the user.
     
-    \subsubsection{SciKit-Learn}
+    \subsubsection*{SciKit-Learn}
     The SciKit-Learn machine learning library provides a number of functions for creating models. It was used to build a model that predicts delay times. Whilst many models were considered, from KNN to an SGD Regressor, eventually it was decided that a random forest should be used. The 'RandomForestRegressor' model from SK-Learn was used as opposed to a standard Random Forest, as predicting delays is a regression task, not a classification one. \\
     
     The reason that an ensemble was selected over any singular classifier is because it has been proven that ensembles regularly attain better performance \citep{Dietterich2000}. This does come at a computing cost, but for relatively small ensembles, this cost is not noticable. The forest model the chatbot employs has 250 trees, which was chosen as a balance. The model gave a good performance at this amount, and increasing the amount of trees increased computing cost for an almost insignificant performance increase. Another reason that the random forest was chosen over a single decision tree is due to the bias-variance tradeoff. A single decision tree can obtain a very low training error, but an unexpectedly high test error due to overfitting. Random Forests counteract this by creating random subsets of features from the dataset, and then building smaller trees from these \citep{Breiman2001}. \\
     
-    The dataset that was used to create the model consisted of roughly 200,000 journeys on the Norwich-London Liverpool Street line, and their delays. Unfortunately, the National Rail API has a limit on the amount of information requests you can make, so it was unfeasable to attain enough data for every train line in the UK.
+    The dataset that was used to create the model consisted of roughly 200,000 journeys on the Norwich-London Liverpool Street line, and their delays. Unfortunately, the National Rail API has a limit on the amount of information requests you can make, so it was unfeasable to attain enough data for every train line in the UK. Equally, querying the API in real time to retrieve data from any line would slow the chatbot down, and make the user's experience jarring. \\
     
-    I WILL FINISH THIS ALL LATER THIS EVENING :)
+    The data was then prepared, with times and delays being formatted correctly. However, an issue arises. SK-Learn is only compatible with numerical data types, and the attributes of the dataset that are strings (The codes of the two stations involved in a journey) needed to be altered. To achieve this, a technique called one-hot encoding was used. One-hot encoding was used over simply giving each train station a number code to maintain independence among stations. This is because it may be an erroneous move to number stations, as one may assume that two stations that are close numerically may have a relationship. Whilst it is true that stations that are geographically closer may have some form of relationship, and one could number stations this way, the model performed no better than with one-hot encoded data. Overall the model is quite successful, attaining a mean absolute error of roughly 0.32, or twenty seconds in the context of delays. When considering that this is roughly 21\% of the average delay (1.51 minutes), this can be seen as a reasonably accurate model.  
     
-    
-    \subsubsection{Flask}
-    The Flask Python framework was used to build the server logic that handles the recieving and sending of messages. Flask is easy to use and, as it is Python based, integrates well with the rest of the project.
-    
-    \subsubsection{BeautifulSoup}
+    \subsubsection*{BeautifulSoup}
     \label{subsubsection:BeautifulSoup}
     BeautifulSoup is a Python HTML parsing library. This will be used for parsing the National Rail website to get information about trains for the user.
     
-    \subsubsection{MongoDB \& PyMongo}
+    \subsubsection*{MongoDB \& PyMongo}
     \label{subsubsection:mongodb}
-    It was determined that a document based database would be suitable for this project as there appear to be very few relations and the data collected would not benefit from being stored in seperate tables. MongoDB stores data as binary JSON (BSON) \citep{korneliusz_2014} and as such is relatively quick to read and write. These benefits are good to have and contribute to the use of MongoDB and PyMongo over SQL based relational databases.
+    It was determined that a document based database would be suitable for this project as there appear to be very few relations, and the data collected would not benefit from being stored in separate tables. MongoDB stores data as binary JSON (BSON) \citep{korneliusz_2014} and as such is relatively quick to read and write. These benefits are good to have and contribute to the use of MongoDB and PyMongo over SQL based relational databases.
     
     \subsection{Server}
     \label{subsection:Server}
-    Facebook Messenger requires an SSL encrypted connection to send messages to and receive messages from users. This means that a webserver must be set up with an SSL certifacte in order to facilitate this.
-    \subsubsection{Microsoft Azure}
+    Facebook Messenger requires an SSL encrypted connection to send messages to, and receive messages from users. This means that a webserver must be set up with an SSL certifacte in order to facilitate this. The server recieves a series of HTTP requests from Facebook when a message is sent. The first is a GET request intended to verify that a) Facebook is the platform sending the message and b) Facebook can verify that the server is the one it is expecting. The Second is a POST request containing the user's information (e.g their unique Sender ID) and their message. The message can then be extracted from this POST request and passed to the NLP component. A POST request is then sent on to Facebook containing the NLG response. This response is passed on to the user as a message.
+    
+    \subsubsection*{Flask}
+    The Flask Python framework was used to build the server logic that handles the recieving and sending of messages. Flask is easy to use and, as it is Python based, integrates well with the rest of the project.
+    
+    \subsubsection*{Microsoft Azure}
     It was decided to use Microsoft's Azure platform as the host for this project. Azure provides Linux VMs and this allows for proper web server configuration and testing.
     
-    \subsubsection{NGINX}
+    \subsubsection*{NGINX}
     NGINX was used as a reverse proxy to host the Python application. NGINX passes a connection to the Python Flask application and enables easy SSL certificate generation with Let's Encrypt and the Electronic Frontier Foundation's (EFF) Certbot tool %Link to Let's Encrypt and EFF
     
-    \subsubsection{Let's Encrypt}
+    \subsubsection*{Let's Encrypt}
     Let's Encrypt and EFF's Certbot tool was used to generate the SSL certificate for the server. Certbot automatically configures NGINX to use SSL rather than a standard HTTP connection, making the server configuration much easier.
     
     \subsection{Building the System}
-    When developing the system a component based approach was used. Each part of the system was developed independently of the overall system and then put together with the server acting as the entry point and the NLP program acts as the overall controller for the rest of the system. Using this method it can be ensured that each component is fully operational before integrating it into the overall system.
-    
-    \subsection{Server Logic}
-    The server recieves a series of HTTP requests from Facebook when a message is sent. The first is a GET request intended to verify that a) Facebook is the platform sending the message and b) Facebook can verify that the server is the one it is expecting. The Second is a POST request containing the user's information (e.g their unique Sender ID) and their message. The message can then be extracted from this POST request and passed to the NLP component. A POST request is then sent on to Facebook containing the NLG response. This response is passed on to the user as a message.
+    When developing the system a component based approach was used. Each part of the system was developed independently of the overall system, and then put together with the server acting as the entry point, and the NLP program acting as the overall controller for the rest of the system. Using this method, it can be ensured that each component can be sufficiently unit tested before integrating it into the overall system.
     
     \subsection{Web Scraping}
     There is no publicly available API to get information about sceduled train journeys in the UK. To get around this a web scraping approach had to be used. A number of websites provide train information (e.g. National Rail and Trailine). It was decided to use the National Rail website to gather train information. The first task was to construct the URL that points to a dynamically generated web page containing the train information. This URL is of the format
-    \emph{http://ojp.nationalrail.co.uk/service/timesandfares/FROM/TO/DATE/TIME/dep} where \emph{TO} and \emph{FROM} are the 3 letter station codes (e.g NRW for Norwich), \emph{DATE} is the date formatted as \emph{YYMMDD} (year, month and day concatenated) and \emph{TIME} is the intended travel time formatted as \emph{hhmm} (hour and minute concatenated).
-    As stated in \ref{subsubsection:BeautifulSoup} the BeautifulSoup library was used to parse the National Rail website and extract the necessary information such as the train time, date and fare. The trains found on the National Rail website are sorted so that the cheapest one is found first and displayed to the user. Functionality was also built to sort the trains in order of their time of departure however the current version has not made such functionality available to the user.
+    \emph{http://ojp.nationalrail.co.uk/service/timesandfares/FROM/TO/DATE/TIME/DEP} where \emph{TO} and \emph{FROM} are the 3 letter station codes (e.g NRW for Norwich), \emph{DATE} is the date formatted as \emph{YYMMDD} (year, month and day concatenated) and \emph{TIME} is the intended travel time formatted as \emph{hhmm} (hour and minute concatenated).
+    As stated in section \ref{subsubsection:BeautifulSoup}, the BeautifulSoup library was used to parse the National Rail website and extract the necessary information such as the train time, date and fare. The trains found on the National Rail website are sorted so that the cheapest one is found first and displayed to the user. Functionality was also built to sort the trains in order of their time of departure, however the current version has not made such functionality available to the user in the interest of providing the cheapest option.
     
-    \subsection{Database}
-    As stated in \ref{subsubsection:mongodb} it was decided to use a document based database due to the fact that a relational database was not best suited to this project. The database structure is shown below in figure \ref{fig:db_structure} and an example of some data is shown in appendix \ref{appendix_subsection:db_example_data}.
+    \subsection{Database Usage}
+    As stated in section \ref{subsubsection:mongodb}, it was decided to use a document based database due to the fact that a relational database was not best suited to this project. The database is used to store information about what trains a user has booked, so if they ask the chatbot when their next journey is, the chatbot will respond with information about the nearest train that the user has booked. The database structure is shown below in Figure \ref{fig:db_structure} and an example of some data is shown in appendix \ref{appendix_subsection:db_example_data}. \\
     
     \begin{figure}
     \begin{lstlisting}
@@ -111,17 +107,17 @@
     "trains": Array // Array of relevant trains
     \end{lstlisting}
     \caption{Example of the Database Structure}
-    \label{fig:my_label}
+    \label{fig:db_structure}
     \end{figure}
     
-    The database stores the Facebook generated sender ID, a unique identifier for each person talking to the chatbot. This enables the database to easily store and read data unique to the user and provide them with relevant information upon request. The chatbot stores information about the trains a user asks about, as the actual booking is done outside of the chatbot this is the only way to provide the user with relevant information.
+    The database stores the Facebook generated sender ID, a unique identifier for each person talking to the chatbot. This enables the database to easily store and read data unique to the user and provide them with relevant information upon request. The chatbot stores information about the trains a user asks about, as the actual booking is done outside of the chatbot this is the only way to provide the user with relevant information. \\
+    
     Data is written to the database by first constructing a Python dictionary and then simply writing to the specified MongoDB database, reading is done by returning a MongoDB Cursor object that is then treated as a dictionary in Python. By using Python's dictionary data structure it makes development extremely smooth and easy and allows the use of Python features such as foreach loops to extract objects from the dictionary.
     
     \section{Testing}
-    \section{Evaluation}
-    \section{Discussion}
-    \subsection{Future Development}
-    In the future it would be good to include features such as more routes than just Norwich to London Liverpool Street, booking within the chatbot and notifications when a user's train was scheduled to depart. With more time the chatbot could be tested more thoroughly and be a smoother experience for the user.
+
+    \section{Future Development}
+    In the future this chatbot would aim to include features, such as increasing the number of routes that our model can predict delays on, rather than just Norwich to London Liverpool Street. Whilst it would take time to retrieve a dataset this large (especially considering the limit on data requests the National Rail API has), we believe that a model as robust as a Random Forest would perform quite well with a task of this magnitude. Another feature that would be implemented would be booking and paying for a ticket within the chatbot, and sending notifications when a user's train was scheduled to depart. With more time, the chatbot could also be tested more thoroughly, generating more phrases for DialogFlow to understand.
     
     \bibliographystyle{agsm}
     \bibliography{main.bib}
